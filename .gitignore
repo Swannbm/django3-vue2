@@ -1,0 +1,34 @@
+### Python template
+# Byte-compiled / optimized / DLL files
+
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+staticfiles/
+
+# Sphinx documentation
+docs/_build/
+
+# pyenv
+.python-version
+
+# vscode personnal settings
+.vscode/settings.json

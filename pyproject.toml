@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "django3-vue2"
+version = "0.1.0"
+license = "Creative Commons"
+description = "Template for bootstraping fullstack project"
+authors = ["Swann <swann.bouvier-muller-ext@johnpaul.com>"]
+readme = "README.md"
+repository = "https://github.com/Swannbm/django3-vue2"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^3.2.6"
+djangorestframework = "^3.12.4"
+djangorestframework-jwt = "^1.11.0"
+psycopg2 = "==2.9.1"
+django-environ = "==0.4.5"
+celery = "==5.1.2"
+redis = "==3.5.3"
+django-storages = "*"
+boto3 = "*"
+django-anymail = {extras = ["mailjet"], version = "*"}
+gunicorn = "*"
+django-filter = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+black = "^21.8b0"
+flake8 = "^3.9.2"
+django-debug-toolbar = "^3.2.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

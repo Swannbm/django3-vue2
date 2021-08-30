@@ -1,0 +1,75 @@
+version: "3.7"
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - app-network
+  
+  app:
+    image: &img django
+    build:
+      context: .
+      target: deploy
+    # Loading a default env file
+    volumes:
+      - .:/code
+    env_file: .env
+    environment:
+      - SQUID_CA_CERT=hello
+      - DEBUG=0
+      # - LOAD_FROM_S3=off # ne plus jamais s'en servir pour visacanada
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    networks:
+      - app-network
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+    restart: on-failure
+
+  worker:
+    build: .
+    working_dir: /app/src
+    command: celery -A config.celery worker --loglevel=info
+    env_file: .env
+    environment:
+      - SQUID_CA_CERT=hello
+      - DEBUG=0
+    depends_on:
+      - redis
+      - app
+    networks:
+      - app-network
+    restart: on-failure
+
+  worker-beat:
+    build: .
+    working_dir: /app/src
+    command: celery -A config.celery beat --loglevel=info
+    environment:
+      - SQUID_CA_CERT=hello
+      - DEBUG=0
+    depends_on:
+      - redis
+      - app
+    networks:
+      - app-network
+    restart: on-failure
+
+networks:
+  app-network:
+    driver: bridge
