@@ -20,7 +20,7 @@ env = environ.Env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-env_path = BASE_DIR / ".env"
+env_path = BASE_DIR.parent / ".env"
 if env_path.is_file():
     environ.Env.read_env(str(env_path))  # reading .env file
 
@@ -32,7 +32,7 @@ if env_path.is_file():
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DJANGO_DEBUG", False)
+DEBUG = env.bool("DEBUG", False)
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
