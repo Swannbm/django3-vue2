@@ -24,6 +24,59 @@ Authentification through JWT with djangorestframework-jwt.
 
 Custom User model.
 
+### Debug configuration for VSC
+
+Below, a few configuration for Visual Studio Code to ease debuging:
+
+Launch Django:
+```
+{
+    "name": "Django",
+    "type": "python",
+    "request": "launch",
+    "program": "${workspaceFolder}/manage.py",
+    "args": [
+        "runserver"
+    ],
+    "django": true,
+    "justMyCode": false
+}
+```
+
+Launch a management command (required to display the file in the editor prior to push debug):
+```
+{
+    "name": "Mgt cmd",
+    "type": "python",
+    "request": "launch",
+    "program": "${workspaceFolder}/manage.py",
+    "args": [
+        "${fileBasenameNoExtension}",
+        "public_data.models.CommunesSybarval"
+    ],
+    "justMyCode": false
+}
+```
+Launch Celery worker in debug mode:
+```
+{
+    "name": "Celery: worker",
+    "type": "python",
+    "request": "launch",
+    "module": "celery",
+    "console": "integratedTerminal",
+    "args": [
+        "-A",
+        "config.celery.app",
+        "worker",
+        "-l",
+        "info",
+        "-P",
+        "solo",
+    ]
+}
+```
+
 ## Frontend
 
 Fully integrated with Django, entry point of the app "index.html" is a django template.
